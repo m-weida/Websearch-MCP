@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "websearch": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/index.js"],
+      "env": {
+        "BRAVE_API_KEY": "${input:braveApiKey}",
+        "SEARCH_PROVIDER": "auto"
+      }
+    }
+  }
+}

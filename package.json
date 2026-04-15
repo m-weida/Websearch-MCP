@@ -1,0 +1,43 @@
+{
+  "name": "@maxw/websearch-mcp",
+  "version": "1.0.0",
+  "description": "MCP server that provides web search and readable page fetching tools",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "websearch-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx --env-file=.env src/index.ts",
+    "lint": "biome check src",
+    "test": "tsx --test \"tests/**/*.test.ts\"",
+    "test:watch": "tsx --test --watch \"tests/**/*.test.ts\"",
+    "prepublishOnly": "pnpm build",
+    "docker:build": "docker build -t websearch-mcp .",
+    "docker:save": "docker save websearch-mcp | gzip > websearch-mcp.tar.gz",
+    "docker:push": "docker tag websearch-mcp ghcr.io/yourusername/websearch-mcp:latest && docker push ghcr.io/yourusername/websearch-mcp:latest"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@mozilla/readability": "^0.6.0",
+    "duck-duck-scrape": "^2.2.7",
+    "jsdom": "^29.0.2",
+    "turndown": "^7.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
+    "@types/jsdom": "^28.0.1",
+    "@types/node": "^25.6.0",
+    "@types/turndown": "^5.0.6",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}
