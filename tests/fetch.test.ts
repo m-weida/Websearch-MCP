@@ -2,10 +2,7 @@ import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
 
 import { handleFetchPage } from "../src/tools/fetch.js";
-import {
-  extractReadableMarkdown,
-  FetchHttpStatusError,
-} from "../src/utils/extract.js";
+import { extractReadableMarkdown, FetchHttpStatusError } from "../src/utils/extract.js";
 import { withTestServer } from "./helpers/http-server.js";
 
 const originalFetchTimeout = process.env.FETCH_TIMEOUT_MS;

@@ -1,9 +1,5 @@
 import { once } from "node:events";
-import {
-  createServer,
-  type IncomingMessage,
-  type ServerResponse,
-} from "node:http";
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 
 export type TestRequestHandler = (
   request: IncomingMessage,

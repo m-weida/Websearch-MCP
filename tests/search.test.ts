@@ -131,10 +131,7 @@ test("handleWebSearch returns formatted Brave results", async () => {
       });
 
       const text = getTextContent(result);
-      assert.equal(
-        text,
-        "[1] Result One\nURL: https://example.com/one\nSnippet: A useful snippet",
-      );
+      assert.equal(text, "[1] Result One\nURL: https://example.com/one\nSnippet: A useful snippet");
     },
   );
 });
@@ -155,10 +152,7 @@ test("handleWebSearch reports provider HTTP failures as tool text errors", async
         provider: "brave",
       });
 
-      assert.equal(
-        getTextContent(result),
-        "Error: Brave request failed with HTTP 503",
-      );
+      assert.equal(getTextContent(result), "Error: Brave request failed with HTTP 503");
     },
   );
 });
