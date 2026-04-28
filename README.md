@@ -1,6 +1,6 @@
 # Websearch MCP
 
-TypeScript MCP server that exposes two tools over stdio:
+TypeScript MCP server that exposes two tools over stdio (with optional Streamable HTTP in dev):
 
 - `web_search`: returns web search results (title, URL, snippet)
 - `fetch_page`: fetches a URL and returns cleaned readable Markdown
@@ -33,6 +33,9 @@ cp .env.example .env
 - `SEARCH_PROVIDER=brave` (`brave`, `duckduckgo`, or `auto`)
 - `FETCH_TIMEOUT_MS=8000`
 - `SEARCH_RESULT_COUNT=5`
+- `MCP_HTTP_HOST=127.0.0.1` (used by `pnpm dev:http`)
+- `MCP_HTTP_PORT=3000` (used by `pnpm dev:http`)
+- `MCP_HTTP_CORS_ORIGIN=*` (comma-separated allowlist for browser clients)
 
 ## Dev Workflow
 
@@ -42,11 +45,22 @@ Run the server directly from TypeScript during development:
 pnpm dev
 ```
 
+`pnpm dev` starts the MCP server over stdio, so there is no IP address or TCP port to connect to. The startup banner in the terminal will say that the server is connected through stdin/stdout.
+
+Run the server over Streamable HTTP during development:
+
+```bash
+pnpm dev:http
+```
+
+`pnpm dev:http` listens on `http://127.0.0.1:3000/mcp` by default. Override with `MCP_HTTP_HOST` and `MCP_HTTP_PORT`. If you are connecting from a browser origin (like `http://127.0.0.1:8080`), set `MCP_HTTP_CORS_ORIGIN` to `*` or a comma-separated list of allowed origins.
+
 Available scripts:
 
 | Command             | Purpose                                                   |
 | ------------------- | --------------------------------------------------------- |
 | `pnpm dev`          | Run MCP server from `src/index.ts` using `tsx` and `.env` |
+| `pnpm dev:http`     | Run Streamable HTTP server from `src/http.ts`             |
 | `pnpm lint`         | Run Biome checks on `src`                                 |
 | `pnpm test`         | Run test suite (`tests/**/*.test.ts`)                     |
 | `pnpm test:watch`   | Run tests in watch mode                                   |
@@ -118,6 +132,11 @@ Behavior:
 - on Brave failure in `auto`, it falls back to DuckDuckGo
 - returns a plain text list of result blocks
 
+### Runtime Address
+
+- `pnpm dev` connects over stdio (no IP address or port).
+- `pnpm dev:http` listens on `http://127.0.0.1:3000/mcp` by default.
+
 ### `fetch_page`
 
 Input:
@@ -155,6 +174,8 @@ docker run --rm -i \
 ```text
 src/
   index.ts
+  http.ts
+  server.ts
   providers/
     brave.ts
     duckduckgo.ts
