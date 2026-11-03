@@ -32,7 +32,7 @@
     "duck-duck-scrape": "^2.2.7",
     "jsdom": "^29.0.2",
     "turndown": "^7.2.4",
-    "zod": "^4.3.6"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
